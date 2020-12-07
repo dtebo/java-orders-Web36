@@ -20,7 +20,7 @@ public class Agent {
     private String phone;
     private String country;
 
-    @OneToMany(mappedBy = "custcode",
+    @OneToMany(mappedBy = "agent",
                cascade = CascadeType.ALL,
               orphanRemoval = true)
     @JsonIgnoreProperties(value = "agent", allowSetters = true)

@@ -31,7 +31,7 @@ public class Customer {
     @JsonIgnoreProperties(value = "customers")
     private Agent agent;
 
-    @OneToMany(mappedBy = "ordernum",
+    @OneToMany(mappedBy = "customer",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     @JsonIgnoreProperties(value = "customer", allowSetters = true)
