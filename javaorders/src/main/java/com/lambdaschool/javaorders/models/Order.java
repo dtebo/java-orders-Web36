@@ -3,6 +3,8 @@ package com.lambdaschool.javaorders.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -20,13 +22,21 @@ public class Order {
     @JsonIgnoreProperties(value = "orders", allowSetters = true)
     private Customer customer;
 
+    @ManyToMany()
+    @JoinTable(name = "orderspayments",
+               joinColumns = @JoinColumn(name = "ordernum"),
+               inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    @JsonIgnoreProperties(value = "orders", allowSetters = true)
+    private Set<Payment> payments = new HashSet<>();
+
     public Order() {
     }
 
-    public Order(double ordamount, double advanceamount, Customer customer) {
+    public Order(double ordamount, double advanceamount, Customer customer, Set<Payment> payments) {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
         this.customer = customer;
+        this.payments = payments;
     }
 
     public long getOrdernum() {
@@ -61,6 +71,14 @@ public class Order {
         this.customer = customer;
     }
 
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -68,6 +86,7 @@ public class Order {
                 ", ordamount=" + ordamount +
                 ", advanceamount=" + advanceamount +
                 ", customer=" + customer +
+                ", payments=" + payments +
                 '}';
     }
 }
