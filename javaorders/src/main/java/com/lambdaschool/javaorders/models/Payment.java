@@ -24,9 +24,8 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String type, Set<Order> orders) {
+    public Payment(String type) {
         this.type = type;
-        this.orders = orders;
     }
 
     public long getPaymentid() {
